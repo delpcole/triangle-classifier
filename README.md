@@ -65,3 +65,7 @@ Customer request: show the shape, say whether it is buildable, don't crash on in
 - **AC3: Right-angle pieces are flagged.** The result starts with `"Right "` if and only if the sides satisfy a² + b² = c² within a relative tolerance of 1e-9. This holds for integer sides and for irrational ones like `8, 8, 8√2`.
 
 `test_acceptance.py` runs every reference case through `classify_triangle()` and checks all three criteria.
+
+## AI-use diclosure
+
+I used GitHub Copilot to assist with generating some portions of the code for this assignment. I reviewed, tested, and made sure I understood the generated code before using it. I also used Claude to help plan the assignment and organize my approach to completing the required tasks.
