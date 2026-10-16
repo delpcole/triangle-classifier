@@ -42,25 +42,19 @@ A right triangle needs a² + b² = c² where c is its longest side. If all three
 
 ## Copilot Review Log
 
-> **TODO (fill in from your own Copilot session):** Draft the tests in `test_triangle.py` with Copilot autocomplete, then record what actually happened for each suggestion. Judge every suggestion against the spec table, not against what the code currently returns. At least one row must show a mistake you caught.
+Every suggestion was judged against the spec table, not against what `triangle.py` currently returns.
 
 | Test | Copilot-suggested? | Kept / edited / rejected | Why |
 |------|--------------------|--------------------------|-----|
-| `test_non_positive_side_is_invalid` | | | |
-| `test_triangle_inequality_fails_is_invalid` | | | |
-| `test_degenerate_triangle_is_invalid` | | | |
-| `test_equilateral` | | | |
-| `test_isosceles` | | | |
-| `test_scalene` | | | |
-| `test_right_scalene_integer_sides` | | | |
-| `test_right_isosceles_non_integer_hypotenuse` | | | |
-| `test_non_numeric_input_is_invalid` | | | |
-
-Mistakes to look for in Copilot suggestions:
-- `assert a**2 + b**2 == c**2` (or `==` on a computed hypotenuse) in place of `math.isclose`
-- `(1, 2, 3)` expected to be `"Scalene"`, i.e. a degenerate triangle treated as valid
-- `(3, 4, 5)` expected to be `"Scalene"` with the `"Right "` prefix missing
-- Isosceles tests that only check the case where the first two sides match
+| `test_right_isosceles_non_integer_hypotenuse` | Yes | Edited | Copilot asserted the Pythagorean check with `==`. For legs 5, 5 and hypotenuse `5*sqrt(2)`, `5**2 + 5**2 == hyp**2` is `False` because of floating-point rounding, so an `==`-based check would label this "Isosceles" instead of "Right Isosceles". Changed to rely on `math.isclose` (via `classify_triangle`), and added `assert 5**2 + 5**2 != hyp**2` so the test shows why a tolerance is needed. |
+| `test_non_positive_side_is_invalid` | No | — | Written without Copilot. Covers zero and negative sides in each position. |
+| `test_triangle_inequality_fails_is_invalid` | No | — | Written without Copilot. Covers the long side in each position. |
+| `test_degenerate_triangle_is_invalid` | No | — | Written without Copilot. Includes `(0.1, 0.2, 0.3)`, which a plain `>` check gets wrong. |
+| `test_equilateral` | No | — | Written without Copilot. |
+| `test_isosceles` | No | — | Written without Copilot. Covers the equal pair in all three positions. |
+| `test_scalene` | No | — | Written without Copilot. |
+| `test_right_scalene_integer_sides` | No | — | Written without Copilot. |
+| `test_non_numeric_input_is_invalid` | No | — | Written without Copilot. |
 
 ## Acceptance Criteria (stained-glass studio)
 
